@@ -1,17 +1,27 @@
 ---
-/** Foto B&N con intervención dibujada encima (ver DOODLES en src/scripts/doodles.ts). */
+/** Foto B&N con intervención dibujada encima (ver DOODLES en src/scripts/doodles.ts).
+    `photo` es el nombre base en public/img: se sirven {photo}.webp (original) y {photo}-600.webp. */
 interface Props {
   doodle: string;
-  src: string;
+  photo: string;
   alt: string;
   class?: string;
   square?: boolean;
   eager?: boolean;
 }
-const { doodle, src, alt, class: cls, square = false, eager = false } = Astro.props;
+const { doodle, photo, alt, class: cls, square = false, eager = false } = Astro.props;
+const full = `/img/${photo}.webp`;
+const width = square ? 1100 : 900;
 ---
 <figure class:list={['ph', cls]} data-doodle={doodle}>
   <div class:list={['pic', { sq: square }]}>
-    <img src={src} alt={alt} loading={eager ? undefined : 'lazy'} decoding="async" />
+    <img
+      src={full}
+      srcset={`/img/${photo}-600.webp 600w, ${full} ${width}w`}
+      sizes="(max-width: 760px) 92vw, 560px"
+      alt={alt}
+      loading={eager ? undefined : 'lazy'}
+      decoding="async"
+    />
   </div>
 </figure>

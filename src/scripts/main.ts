@@ -24,8 +24,8 @@ drawWith(fSvg, form, ['start 0.95', 'start 0.4']);
 
 /* hilo rojo */
 const thread = initThread();
-let rT = 0;
-const rebuild = () => { clearTimeout(rT); rT = window.setTimeout(() => { thread.build(); frames(); }, 120); };
+let rT = 0, settleStars = () => {};
+const rebuild = () => { clearTimeout(rT); rT = window.setTimeout(() => { thread.build(); frames(); settleStars(); }, 120); };
 new ResizeObserver(rebuild).observe($('#main'));
 document.fonts?.ready.then(rebuild);
 thread.build();
@@ -42,10 +42,12 @@ if (!reduce) {
 initIntro(rebuild);
 
 /* estrellas del logo por todo el sitio */
-initStars();
+const stars = initStars();
 
 /* cuenta regresiva */
 initCountdown();
+settleStars = stars.settle;
+settleStars();
 
 /* copiar */
 $$<HTMLButtonElement>('[data-copy]').forEach(b => b.addEventListener('click', async () => {

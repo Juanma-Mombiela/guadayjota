@@ -67,12 +67,12 @@ export function initMap() {
   let g = '';
   par.forEach(([y]) => g += `<path d="${line(-40, y, 640, y)}" pathLength="1"/>`);
   tra.forEach(([x]) => g += `<path d="${line(x, 10, x, 320)}" pathLength="1"/>`);
-  g += `<path d="${SH.ellipse(60, 40, 34, 26, 1.05)}" pathLength="1"/>`;
+  SH.ellipse(60, 40, 34, 26, 1.05); // (era la plaza) se calcula igual para no mover el temblor del resto de los trazos
   g += `<path d="${SH.heart(238, 108, 30)}" pathLength="1"/><path d="${SH.ellipse(238, 112, 38, 34, 1.15)}" pathLength="1"/>`;
   g += `<path d="${SH.arrow(320, 40, 266, 86, -20)}" pathLength="1"/>`;
   par.forEach(([y, n]) => g += `<text x="${n === 'Cantilo' ? 400 : 520}" y="${y - 8}" font-size="${n === 'Cantilo' ? 22 : 17}">${n}</text>`);
   tra.forEach(([x, n]) => g += `<text x="${x + 8}" y="306" font-size="17">${n}</text>`);
-  g += `<text x="34" y="46" font-size="15">plaza</text><text x="326" y="40" font-size="24">¡acá!</text>`;
+  g += `<text x="326" y="40" font-size="24">¡acá!</text>`;
   svg.innerHTML = `<g transform="rotate(-24 300 170)">${g}</g>`;
   drawWith(svg, link, ['start 0.9', 'end 0.6']);
 }

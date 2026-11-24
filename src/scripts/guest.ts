@@ -1,7 +1,8 @@
 /* Invitado del link personalizado (?i=<slug>) contra el Apps Script de la planilla.
    Sin PUBLIC_RSVP_URL corre en modo demo: invitado de prueba y no se manda nada. */
 
-export type Respuesta = { asiste: string; cantidad: number; tema: string };
+export type Asiste = 'si' | 'no';
+export type Respuesta = { asiste: Asiste; cantidad: number; tema: string };
 export type Guest = { slug: string; nombre: string; cupos: number; tipo: 'cena' | 'fiesta'; respuesta: Respuesta | null };
 export type GuestResult =
   | { status: 'ok'; guest: Guest }
@@ -41,7 +42,7 @@ export async function loadGuest(): Promise<GuestResult> {
         nombre: String(d.nombre || ''),
         cupos: Math.max(1, Number(d.cupos) || 1),
         tipo: d.tipo === 'fiesta' ? 'fiesta' : 'cena',
-        respuesta: d.respuesta ? { asiste: String(d.respuesta.asiste || ''), cantidad: Number(d.respuesta.cantidad) || 1, tema: String(d.respuesta.tema || '') } : null,
+        respuesta: d.respuesta ? { asiste: d.respuesta.asiste === 'no' ? 'no' : 'si', cantidad: Number(d.respuesta.cantidad) || 0, tema: String(d.respuesta.tema || '') } : null,
       },
     };
   } catch {
@@ -50,14 +51,14 @@ export async function loadGuest(): Promise<GuestResult> {
 }
 
 /** Guarda la respuesta. Devuelve true solo si el script confirmó que la guardó. */
-export async function saveRsvp(slug: string, cantidad: number, tema: string): Promise<boolean> {
+export async function saveRsvp(slug: string, asiste: Asiste, cantidad: number, tema: string): Promise<boolean> {
   if (DEMO) { await new Promise(r => setTimeout(r, 400)); return true; }
   try {
     const d = await withRetry(() => getJson(RSVP_URL, {
       method: 'POST',
       // text/plain evita el preflight de CORS contra Apps Script
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ slug, cantidad, tema, ua: navigator.userAgent }),
+      body: JSON.stringify({ slug, asiste, cantidad, tema, ua: navigator.userAgent }),
     }).then(r => { if (!r || !r.ok) throw new Error('not saved'); return r; }));
     return !!d.ok;
   } catch {
