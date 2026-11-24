@@ -1,0 +1,10 @@
+/*
+VOICE: elegante y canchero, humor nivel 2.
+IDEA: un cuaderno de fotos intervenidas: fotos en blanco y negro con dibujos en tinta roja que se dibujan solos.
+COLOUR and TYPE: papel, negro de foto y una sola tinta roja (la del logo). Shantell Sans a mano + DM Sans.
+*/
+:root{
+  color-scheme:light;
+  --ink:#B3000C;--paper:#FBF9F5;--text:#1D1A18;--soft:#6d6560;
+  --hand:"Shantell Sans","Segoe Print",cursive;--body:"DM Sans Variable","DM Sans",system-ui,sans-serif;
+}

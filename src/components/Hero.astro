@@ -1,0 +1,35 @@
+---
+import STROKES from '../data/intro_paths.json';
+
+const title = 'Guada & Jota se casan';
+const words = title.split(' ').map(w => [...w]);
+const strokes = STROKES as [string, number, number][];
+---
+<header class="hero">
+  <div>
+    <svg class="logo" viewBox="0 0 800 900" role="img" aria-label="G y J en dos corazones entrelazados, febrero 2027" data-intro-logo>
+      <defs>
+        <mask id="logoMask" maskUnits="userSpaceOnUse" x="-20" y="-20" width="840" height="940">
+          <rect x="-20" y="-20" width="840" height="940" fill="#000" />
+          <g fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" data-strokes>
+            {strokes.map(([d]) => <path d={d} pathLength="1" />)}
+          </g>
+        </mask>
+      </defs>
+      <image href="/img/logo.png" width="800" height="900" mask="url(#logoMask)" />
+      <image class="istar" href="/img/intro-star0.png" x="114" y="2" width="165" height="169" />
+      <image class="istar" href="/img/intro-star1.png" x="691" y="591" width="107" height="140" />
+      <image class="istar" href="/img/intro-star2.png" x="75" y="769" width="130" height="129" />
+    </svg>
+    <h1 data-type aria-label={title}>
+      {words.map((w, i) => (
+        <Fragment>
+          <span class="wd" aria-hidden="true">{w.map(c => <span class="ch">{c}</span>)}</span>{i < words.length - 1 ? ' ' : ''}
+        </Fragment>
+      ))}
+    </h1>
+    <p class="date" data-fade>Sábado 27 de febrero de 2027 · 18 hs</p>
+    <a class="down" href="#si" data-fade>bajá <b>↓</b></a>
+    <button class="skip" type="button" data-skip>saltar</button>
+  </div>
+</header>

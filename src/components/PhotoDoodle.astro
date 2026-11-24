@@ -1,0 +1,17 @@
+---
+/** Foto B&N con intervención dibujada encima (ver DOODLES en src/scripts/doodles.ts). */
+interface Props {
+  doodle: string;
+  src: string;
+  alt: string;
+  class?: string;
+  square?: boolean;
+  eager?: boolean;
+}
+const { doodle, src, alt, class: cls, square = false, eager = false } = Astro.props;
+---
+<figure class:list={['ph', cls]} data-doodle={doodle}>
+  <div class:list={['pic', { sq: square }]}>
+    <img src={src} alt={alt} loading={eager ? undefined : 'lazy'} decoding="async" />
+  </div>
+</figure>

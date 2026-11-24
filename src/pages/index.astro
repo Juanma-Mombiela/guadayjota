@@ -1,0 +1,144 @@
+---
+import '@fontsource/shantell-sans/400.css';
+import '@fontsource/shantell-sans/600.css';
+import '@fontsource/shantell-sans/800.css';
+import '@fontsource/shantell-sans/600-italic.css';
+import '@fontsource/shantell-sans/800-italic.css';
+import '@fontsource-variable/dm-sans/opsz.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+import Hero from '../components/Hero.astro';
+import PhotoDoodle from '../components/PhotoDoodle.astro';
+import Countdown from '../components/Countdown.astro';
+import Map from '../components/Map.astro';
+import Alias from '../components/Alias.astro';
+import Rsvp from '../components/Rsvp.astro';
+import Footer from '../components/Footer.astro';
+import FloatingPets from '../components/FloatingPets.astro';
+
+const title = 'Guada & Jota se casan';
+const description = 'Sábado 27 de febrero de 2027 · 18 hs';
+---
+<!doctype html>
+<html lang="es-AR" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta name="theme-color" content="#FBF9F5" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script is:inline>
+    (function () {
+      var h = document.documentElement;
+      h.classList.remove('no-js');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        h.classList.add('intro');
+        // si el JS principal no llega a arrancar, que no quede todo oculto
+        setTimeout(function () { if (!window.__gjIntro) h.classList.remove('intro'); }, 4000);
+      }
+    })();
+  </script>
+</head>
+<body>
+
+<FloatingPets />
+
+<main id="main">
+  <svg id="thread" aria-hidden="true"><path id="threadPath" /><circle id="tip" r="5" /></svg>
+
+  <Hero />
+
+  <section class="sec" id="si">
+    <div class="wrap split">
+      <PhotoDoodle doodle="fiesta" src="/img/fiesta.jpg" alt="Guada y Jota abrazados en una fiesta bajo una carpa con luces" eager />
+      <div>
+        <span class="label">sí, leíste bien</span>
+        <h2 data-in>Es en serio.</h2>
+        <p class="lead" data-in>Nos casamos y queremos que estés. Bajá despacio que te contamos todo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <span class="label">el día</span>
+      <div class="dia">
+        <div class="big" data-in>27.02.27</div>
+        <div>
+          <h2 style="margin-top:0" data-in>Sábado, 18 hs</h2>
+          <p class="lead" data-in>Llegá a horario. A las 18 pasa algo que no te querés perder, y no te vamos a decir qué.</p>
+        </div>
+      </div>
+      <Countdown />
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <span class="label">por si todavía no nos creés</span>
+      <h2 data-in>Mirá, es verdad</h2>
+      <div class="gallery">
+        <PhotoDoodle class="g1" doodle="patio" src="/img/patio.jpg" alt="Jota y Guada en la puerta de una casa, ella con el brazo en alto" />
+        <PhotoDoodle class="g2" doodle="mascarillas" src="/img/mascarillas.jpg" alt="Los dos con mascarillas faciales" />
+        <PhotoDoodle class="g8" doodle="paseo" src="/img/paseo.jpg" alt="Selfie de los dos en la calle, entre edificios" square />
+        <PhotoDoodle class="g9" doodle="ascensor" src="/img/ascensor.jpg" alt="Foto en el espejo de un ascensor: Guada saca la foto, Jota aparece dos veces" />
+        <PhotoDoodle class="g5" doodle="guadaFlores" src="/img/guada-flores.jpg" alt="Guada en el aeropuerto con sombrero y un ramo de flores" />
+        <PhotoDoodle class="g6" doodle="jotaFlores" src="/img/jota-flores.jpg" alt="Jota en el aeropuerto con un ramo de flores" />
+        <PhotoDoodle class="g7" doodle="anillo" src="/img/anillo.jpg" alt="Selfie en la playa: Guada muestra el anillo de compromiso" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <span class="label">dónde</span>
+      <div class="where">
+        <div>
+          <h2 data-in>Cantilo al Medio</h2>
+          <p class="addr" data-in>Cantilo 1011, City Bell</p>
+          <div class="actions">
+            <a class="btn fill" href="https://www.google.com/maps/dir/?api=1&destination=Cantilo%20al%20Medio%2C%20Cantilo%201011%2C%20City%20Bell" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn" href="https://waze.com/ul?ll=-34.8750958,-58.0489982&navigate=yes" target="_blank" rel="noopener">Waze</a>
+            <button class="btn" type="button" data-copy="Cantilo 1011, City Bell, Buenos Aires">Copiar dirección</button>
+          </div>
+        </div>
+        <Map />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap split rev">
+      <PhotoDoodle doodle="espejo" src="/img/espejo.jpg" alt="Selfie en el espejo, los dos bien vestidos" />
+      <div>
+        <span class="label">dress code</span>
+        <h2 data-in>Elegante y canchero</h2>
+        <p class="lead" data-in>Lo mejor de tu placard, pero que se pueda bailar. Los colores están más que invitados; el blanco se lo dejamos a Guada.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <span class="label">regalos</span>
+      <h2 data-in>Lo más importante es que vengas</h2>
+      <p class="lead" data-in>Pero si querés hacernos un regalo, dejamos este alias.</p>
+      <Alias />
+    </div>
+  </section>
+
+  <Rsvp />
+
+  <Footer />
+</main>
+
+<script>
+  import '../scripts/main';
+</script>
+</body>
+</html>

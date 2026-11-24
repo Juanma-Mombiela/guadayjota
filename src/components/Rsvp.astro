@@ -1,0 +1,39 @@
+---
+const demo = !import.meta.env.PUBLIC_RSVP_URL;
+---
+<section class="sec rsvp-sec" id="confirmar">
+  <div class="wrap">
+    <form class="rsvp" novalidate>
+      <svg class="frame" aria-hidden="true"><path /></svg>
+      <div class="step on" data-step="1">
+        <p class="hi">Hola<span data-guest></span></p>
+        <h3>¿Venís?</h3>
+        <p>Tenés <b data-cupos>tus</b> <span data-lugares>lugares reservados</span>. Confirmá antes del 15 de enero.</p>
+        <p class="late" data-late hidden>Ya pasó la fecha, igual avisanos.</p>
+        <div class="arena">
+          <button type="button" class="btn fill yes">Sí, obvio</button>
+          <button type="button" class="btn no">No</button>
+          <p class="quip" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="step" data-step="2">
+        <p class="hi">Sabíamos.</p>
+        <h3>Contanos un poco más</h3>
+        <div class="field"><label id="cuantos-l">¿Cuántos vienen?</label><div class="seg" data-seg role="group" aria-labelledby="cuantos-l"></div></div>
+        <div class="field"><label for="tema">¿Qué tema no puede faltar?</label><input id="tema" type="text" maxlength="120" placeholder="Ej.: Ciudad de pobres corazones" autocomplete="off" /></div>
+        <p class="err" role="alert" data-err></p>
+        <div class="row"><button type="submit" class="btn fill">Confirmar</button><button type="button" class="btn" data-back>Volver</button></div>
+      </div>
+      <div class="step" data-step="3">
+        <p class="hi">Listo.</p>
+        <h3>Te esperamos el 27</h3>
+        <p data-summary style="margin-top:10px"></p>
+        <div class="row"><button type="button" class="btn" data-edit>Cambiar respuesta</button></div>
+      </div>
+      <div class="step" data-step="x">
+        <p class="stranger" data-stranger></p>
+      </div>
+      {demo && <p class="note" style="margin-top:22px" data-demo>Demo: en la versión final la respuesta se guarda en Google Sheets y el saludo sale del link de cada invitado.</p>}
+    </form>
+  </div>
+</section>
