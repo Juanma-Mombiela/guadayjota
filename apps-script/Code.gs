@@ -65,6 +65,8 @@ function onOpen() {
 
 function onEdit(e) {
   const sh = e.range.getSheet();
+  // si cambian la URL del sitio en Config!B1, se rehacen todos los links
+  if (sh.getName() === CONFIG) { if (e.range.getA1Notation() === 'B1') generarLinks(); return; }
   if (sh.getName() !== INV) return;
   const r0 = Math.max(2, e.range.getRow()), r1 = e.range.getLastRow();
   if (r1 >= r0) completar(sh, r0, r1);
@@ -86,25 +88,35 @@ function prepararConfig() {
   c.setColumnWidth(1, 160); c.setColumnWidth(2, 320);
 }
 
+/** URL del sitio (Config!B1), siempre terminada en "/". */
+function baseUrl() {
+  const v = String(ss().getSheetByName(CONFIG).getRange('B1').getValue() || BASE_URL_DEFAULT).trim();
+  return v.endsWith('/') ? v : v + '/';
+}
+
 function completar(sh, r0, r1) {
   prepararConfig();
   const head = sh.getRange(1, COL.link);
   if (head.getValue() !== 'link') head.setValue('link').setFontWeight('bold').setFontColor('#FFFFFF').setBackground('#B3000C');
+  const base = baseUrl();
   const last = Math.max(2, sh.getLastRow());
   const used = new Set(sh.getRange(2, COL.slug, last - 1, 1).getValues().map(r => String(r[0]).trim()).filter(Boolean));
   const vals = sh.getRange(r0, 1, r1 - r0 + 1, 4).getValues();
   vals.forEach((v, i) => {
     const row = r0 + i, nombre = String(v[COL.nombre - 1]).trim();
+    let slug = String(v[COL.slug - 1]).trim();
+    // el link va como texto (no fórmula): así no depende del idioma de la planilla
+    const link = sh.getRange(row, COL.link);
+    if (!nombre && !slug) { link.clearContent(); return; }
     if (!nombre) return;
-    if (!String(v[COL.slug - 1]).trim()) {
-      const s = nuevoSlug(nombre, used);
-      used.add(s);
-      sh.getRange(row, COL.slug).setValue(s);
+    if (!slug) {
+      slug = nuevoSlug(nombre, used);
+      used.add(slug);
+      sh.getRange(row, COL.slug).setValue(slug);
     }
     if (v[COL.cupos - 1] === '') sh.getRange(row, COL.cupos).setValue(1);
     if (v[COL.tipo - 1] === '') sh.getRange(row, COL.tipo).setValue('cena');
-    const link = sh.getRange(row, COL.link);
-    if (!link.getFormula()) link.setFormula(`=IF(A${row}="","",REGEXREPLACE(${CONFIG}!$B$1,"/?$","/")&"?i="&A${row})`);
+    link.setValue(base + '?i=' + slug);
   });
 }
 
