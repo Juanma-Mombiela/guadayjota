@@ -6,6 +6,8 @@ body{margin:0;background:var(--paper);color:var(--text);font:17px/1.6 var(--body
 h1,h2,h3{font-family:var(--hand);font-weight:800;margin:0;line-height:1;text-wrap:balance;color:var(--ink)}
 p{margin:0}
 [hidden]{display:none!important}
+/* sin link personal válido: sin fecha, horario ni ubicación */
+.anon [data-privado]{display:none!important}
 button{font:inherit}
 :focus-visible{outline:3px dashed var(--ink);outline-offset:4px}
 main{position:relative}

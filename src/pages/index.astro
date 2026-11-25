@@ -19,7 +19,7 @@ import Footer from '../components/Footer.astro';
 import FloatingPets from '../components/FloatingPets.astro';
 
 const title = 'Guada & Jota se casan';
-const description = 'Sábado 27 de febrero de 2027 · 18 hs';
+const description = 'Sábado 27 de febrero de 2027';
 // WhatsApp necesita la URL absoluta de la imagen: sale de `site` (astro.config.mjs)
 const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).href : '/og.jpg';
 ---
@@ -46,6 +46,8 @@ const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).href : '/og.jpg';
     (function () {
       var h = document.documentElement;
       h.classList.remove('no-js');
+      // sin el link personal (?i=…) no se muestran fecha, horario, ubicación ni formulario
+      if (!new URLSearchParams(location.search).get('i')) h.classList.add('anon');
       if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         h.classList.add('intro');
         // si el JS principal no llega a arrancar, que no quede todo oculto
@@ -74,14 +76,14 @@ const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).href : '/og.jpg';
     </div>
   </section>
 
-  <section class="sec dia-sec">
+  <section class="sec dia-sec" data-privado>
     <div class="wrap">
       <span class="label">el día</span>
       <div class="dia">
         <div class="big" data-in>27-02-27</div>
         <div>
-          <h2 style="margin-top:0" data-in>Sábado, 18 hs</h2>
-          <p class="lead" data-in>Llegá a horario. A las 18:30 pasa algo que no te querés perder, y no te vamos a decir qué.</p>
+          <h2 style="margin-top:0" data-in>Sábado, <span data-hora>18 hs</span></h2>
+          <p class="lead" data-in data-solo-cena>Llegá a horario. A las 18:30 pasa algo que no te querés perder, y no te vamos a decir qué.</p>
         </div>
       </div>
       <Countdown />
@@ -104,7 +106,7 @@ const ogImage = Astro.site ? new URL('/og.jpg', Astro.site).href : '/og.jpg';
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec" id="donde" data-privado>
     <div class="wrap">
       <span class="label">dónde</span>
       <div class="where">

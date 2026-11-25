@@ -13,7 +13,7 @@ export function initThread() {
     thread.style.height = H + 'px';
     thread.setAttribute('viewBox', `0 0 ${W} ${H}`);
     setSeed(3);
-    const g = Math.max(12, Math.min(W * 0.035, 48)), secs = $$('#main>section:not([hidden]), #main>footer');
+    const g = Math.max(12, Math.min(W * 0.035, 48)), secs = $$('#main>section, #main>footer').filter(s => s.offsetHeight > 0); // sin las secciones ocultas
     const hero = $('.hero');
     const P: Pt[] = [[W / 2, hero.offsetTop + hero.offsetHeight - 40]];
     let right = true;

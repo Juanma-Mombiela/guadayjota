@@ -1,11 +1,18 @@
-const TARGET = new Date('2027-02-27T18:00:00-03:00').getTime();
+/* Cuenta regresiva al horario del invitado (cena 18 hs por defecto; fiesta 23 hs, ver tipo.ts). */
+let target = new Date('2027-02-27T18:00:00-03:00').getTime();
+let tick = () => {};
+
+export function setCountdownTarget(iso: string) {
+  target = new Date(iso).getTime();
+  tick();
+}
 
 export function initCountdown() {
   const el = document.querySelector<HTMLElement>('[data-cd]');
   if (!el) return;
   let id = 0;
-  const tick = () => {
-    let d = TARGET - Date.now();
+  tick = () => {
+    let d = target - Date.now();
     if (d <= 0) {
       el.innerHTML = '<div><b>¡Es hoy!</b></div>';
       clearInterval(id);

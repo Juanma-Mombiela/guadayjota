@@ -29,9 +29,9 @@ async function getJson(url: string, init?: RequestInit) {
 }
 
 export async function loadGuest(): Promise<GuestResult> {
-  if (DEMO) return { status: 'ok', guest: { ...DEMO_GUEST } };
   const slug = slugFromUrl();
   if (!slug) return { status: 'unknown' };
+  if (DEMO) return { status: 'ok', guest: { ...DEMO_GUEST } };
   try {
     const d = await withRetry(() => getJson(`${RSVP_URL}?i=${encodeURIComponent(slug)}`));
     if (!d || !d.ok) return { status: 'unknown' };

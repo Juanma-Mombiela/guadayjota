@@ -1,6 +1,7 @@
 import { $, $$ } from './dom';
 import { shakePets } from './pets';
 import { loadGuest, saveRsvp, type Asiste, type Guest } from './guest';
+import { applyTipo } from './tipo';
 
 const DEADLINE = new Date('2027-01-16T00:00:00-03:00').getTime();
 const QUIPS = ['Burrata no te lo permite.', 'Ese botón está de adorno.', 'Casi.', 'Nop.', 'Ni lo intentes.', 'Probá con el rojo.', '¿Seguro? Pensalo.'];
@@ -91,6 +92,7 @@ export function initRsvp(onLayout: () => void) {
   yes.disabled = decline.disabled = true;
   loadGuest().then(r => {
     if (r.status !== 'ok') {
+      if (r.status === 'unknown') document.documentElement.classList.add('anon');
       $('[data-stranger]', f).textContent = r.status === 'unknown'
         ? 'Este link no es tuyo. Pedile el tuyo a Guada o a Jota.'
         : 'No pudimos cargar tu invitación. Recargá la página o mandale un WhatsApp a Jota.';
@@ -98,7 +100,7 @@ export function initRsvp(onLayout: () => void) {
       return;
     }
     guest = r.guest;
-    document.documentElement.dataset.tipo = guest.tipo;
+    applyTipo(guest.tipo);
     $('[data-guest]', f).textContent = guest.nombre ? `, ${guest.nombre}` : '';
     // con un solo cupo es su invitación personal: sin la pregunta de cuántos vienen
     if (guest.cupos > 1) $('[data-cupos]', f).textContent = String(guest.cupos);
