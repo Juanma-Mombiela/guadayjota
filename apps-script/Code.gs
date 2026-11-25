@@ -56,7 +56,7 @@ function doPost(e) {
    Al escribir un nombre en nombre_mostrar: si falta, se genera el slug (fijo, no cambia más),
    cupos = 1 y tipo = cena por defecto, y en la columna "link" queda la URL completa.
    La URL base está en Config!B1: cuando tengan el dominio, se cambia ahí y se actualizan todos. */
-const INV = 'Invitados', CONFIG = 'Config', BASE_URL_DEFAULT = 'http://localhost:4321/';
+const INV = 'Invitados', CONFIG = 'Config', BASE_URL_DEFAULT = 'https://guadayjota.vercel.app/';
 const COL = { slug: 1, nombre: 2, cupos: 3, tipo: 4, link: 7 };
 
 function onOpen() {

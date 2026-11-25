@@ -100,8 +100,10 @@ export function initRsvp(onLayout: () => void) {
     guest = r.guest;
     document.documentElement.dataset.tipo = guest.tipo;
     $('[data-guest]', f).textContent = guest.nombre ? `, ${guest.nombre}` : '';
-    $('[data-cupos]', f).textContent = String(guest.cupos);
-    $('[data-lugares]', f).textContent = guest.cupos > 1 ? 'lugares reservados' : 'lugar reservado';
+    // con un solo cupo es su invitación personal: sin la pregunta de cuántos vienen
+    if (guest.cupos > 1) $('[data-cupos]', f).textContent = String(guest.cupos);
+    else $('[data-reserva]', f).textContent = 'Tu lugar está reservado.';
+    seg.closest<HTMLElement>('.field')!.hidden = guest.cupos === 1;
     const prev = guest.respuesta;
     n = prev && prev.asiste === 'si' ? Math.max(1, Math.min(guest.cupos, prev.cantidad)) : guest.cupos;
     buildSeg(guest.cupos);
