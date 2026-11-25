@@ -14,13 +14,15 @@ import { initRsvp } from './rsvp';
 initDoodles();
 initMap();
 
-/* marcos a mano (alias y formulario) */
+/* marcos a mano (alias, QR de fotos y formulario) */
 const aliasBox = $('[data-alias]'), aliasSvg = $<SVGSVGElement>('svg', aliasBox), aliasPath = $<SVGPathElement>('path', aliasSvg);
+const qrBox = $('[data-qr]'), qrSvg = $<SVGSVGElement>('.qr-frame', qrBox), qrPath = $<SVGPathElement>('path', qrSvg);
 const form = $('.rsvp'), fSvg = $<SVGSVGElement>('.frame', form), fPath = $<SVGPathElement>('path', fSvg);
-const frames = () => { frame(aliasBox, aliasSvg, aliasPath); frame(form, fSvg, fPath); };
+const frames = () => { frame(aliasBox, aliasSvg, aliasPath); frame(form, fSvg, fPath); frame(qrBox, qrSvg, qrPath); };
 frames();
 drawWith(aliasSvg, aliasBox, ['start 0.9', 'center 0.6']);
 drawWith(fSvg, form, ['start 0.95', 'start 0.4']);
+drawWith(qrSvg, qrBox, ['start 0.9', 'center 0.6']);
 
 /* hilo rojo */
 const thread = initThread();

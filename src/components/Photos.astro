@@ -1,0 +1,32 @@
+---
+import QRCode from 'qrcode';
+
+/** Carpeta de Drive donde los invitados suben las fotos del casamiento. */
+const FOLDER = 'https://drive.google.com/drive/folders/10zMnUUz5khF3fgECaA0IgNaYcmjY3G-h?usp=sharing';
+// el QR se genera al compilar, en la tinta del sitio y con fondo transparente
+const qr = await QRCode.toString(FOLDER, {
+  type: 'svg',
+  margin: 0,
+  errorCorrectionLevel: 'M',
+  color: { dark: '#B3000CFF', light: '#00000000' },
+});
+---
+<section class="sec" id="fotos">
+  <div class="wrap fotos">
+    <div>
+      <span class="label">las fotos</span>
+      <h2 data-in>Mandanos tus fotos</h2>
+      <p class="lead" data-in>Todo lo que saques en la fiesta, subilo acá. Queremos ver la noche desde todos los ángulos (sí, también las borrosas).</p>
+      <div class="actions">
+        <a class="btn fill" href={FOLDER} target="_blank" rel="noopener">Subir fotos</a>
+      </div>
+    </div>
+    <figure class="qr">
+      <div class="qr-box" data-qr>
+        <svg class="qr-frame" aria-hidden="true"><path /></svg>
+        <a href={FOLDER} target="_blank" rel="noopener" aria-label="Abrir la carpeta de fotos" set:html={qr} />
+      </div>
+      <figcaption>o escaneá el QR</figcaption>
+    </figure>
+  </div>
+</section>

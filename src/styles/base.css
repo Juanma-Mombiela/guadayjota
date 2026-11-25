@@ -14,7 +14,17 @@ section,header.hero,footer{position:relative;z-index:1}
 /* ---------- Burrata y el gatito ---------- */
 .pet{position:fixed;left:0;top:0;z-index:60;pointer-events:none;will-change:transform}
 .pet img{width:clamp(56px,6vw,78px);display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18))}
-.pet.shake img{animation:shake .5s ease-in-out 2}
+.pet .face{position:relative}
+.pet.shake .face{animation:shake .5s ease-in-out 2}
+/* cuando intentan tocar "No": ojos y cejas de enojados, dibujados con la tinta del sitio */
+.angry-face{position:absolute;inset:0;width:100%;height:100%;overflow:visible;opacity:0;transition:opacity .5s}
+.angry-face path{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .22s ease-out}
+.angry-face .halo{stroke:var(--paper);stroke-width:4.6}
+.angry-face .ink{stroke:var(--ink);stroke-width:2.6}
+.pet.angry .angry-face{opacity:1}
+.pet.angry .angry-face path{stroke-dashoffset:0}
+.pet.angry .vein{animation:throb .45s ease-in-out .4s infinite alternate}
+@keyframes throb{to{transform:scale(1.18)}}
 /* aparecen recién cuando termina la intro del logo */
 .pet{transition:opacity .8s ease .2s}
 .intro .pet{opacity:0;transition:none}
@@ -107,6 +117,17 @@ html.intro{overflow:hidden}
 .alias code{font-family:var(--hand);font-weight:800;font-size:clamp(1.3rem,4vw,2rem);color:var(--text)}
 .alias svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .alias path{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+
+/* ---------- fotos del casamiento ---------- */
+.fotos{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,6vw,90px);align-items:center}
+.qr{margin:0;text-align:center}
+.qr-box{position:relative;display:inline-block;padding:18px}
+.qr-box a{display:block;width:clamp(150px,22vw,220px)}
+.qr-box a svg{display:block;width:100%;height:auto}
+.qr-frame{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.qr-frame path{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.qr figcaption{font-family:var(--hand);font-style:italic;font-weight:600;color:var(--ink);font-size:1.1rem;margin-top:10px;transform:rotate(-2deg)}
+@media(max-width:760px){.fotos{grid-template-columns:minmax(0,1fr)}.qr{justify-self:center}}
 
 /* ---------- confirmación ---------- */
 .rsvp{position:relative;max-width:640px;margin:0 auto;padding:clamp(28px,5vw,48px)}
